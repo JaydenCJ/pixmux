@@ -1,0 +1,31 @@
+# --- build outputs ---
+target/
+build/
+dist/
+out/
+
+# --- dependencies ---
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# --- model weights & large artifacts (never commit) ---
+models/
+*.gguf
+*.onnx
+*.safetensors
+
+# --- env & secrets ---
+.env
+.env.*
+!.env.example
+
+# --- caches / editor / OS ---
+.DS_Store
+.idea/
+.vscode/
+.cache/
+coverage/
+*.log
+tmp/

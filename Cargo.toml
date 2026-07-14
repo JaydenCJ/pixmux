@@ -1,0 +1,25 @@
+[package]
+name = "pixmux"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Kitty graphics protocol passthrough shim for tmux and zellij: wrap, re-chunk, or transcode terminal images so they survive your multiplexer."
+repository = "https://github.com/JaydenCJ/pixmux"
+keywords = ["tmux", "zellij", "kitty", "graphics", "terminal"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+# CLI parsing with generated --help/--version (kept to default features only).
+clap = { version = "4.5", features = ["derive"] }
+# Kitty graphics payloads are base64; needed for decode (zellij transcode) and encode (`pixmux cat`).
+base64 = "0.22"
+# Pure-Rust PNG decoding for f=100 payloads before sixel transcoding.
+png = "0.17"
+# zlib decompression for kitty `o=z` compressed payloads (rust backend, no C).
+flate2 = { version = "1.0", default-features = false, features = ["rust_backend"] }
+# PTY spawn + termios raw mode for `pixmux run` (Linux/macOS only code paths).
+nix = { version = "0.29", features = ["term", "process", "fs", "signal", "ioctl", "poll"] }
+
+[profile.release]
+lto = true
+strip = true
